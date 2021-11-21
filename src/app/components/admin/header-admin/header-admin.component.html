@@ -1,0 +1,76 @@
+<nav class="navbar navbar-light bg-light fixed-top" style="background: linear-gradient(180deg, rgba(0,164,215,1) 0%, rgba(9,91,165,1) 100%);">
+  <div class="container-fluid" >
+
+    <button class="navbar-toggler " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon "></span>
+    </button>
+
+    <a class="navbar-brand text-light" href="">Dashboard de Administrador</a>
+
+    <div class="offcanvas offcanvas-start " tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background: linear-gradient(180deg, rgba(0,164,215,1) 0%, rgba(9,91,165,1) 100%);">
+      <div class="offcanvas-header p-4">
+
+
+        <a href="../index.jsp" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+          <img src="../assets/img/logo-blanco.png" width="120"/>
+          <span class="fs-4">Admin</span>
+        </a>
+
+
+        <button type="button" class="btn-close text-reset bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 p-4">
+
+          <li class="nav-item">
+              <a class="nav-link active" aria-current="page" routerLink="/admin">
+                  <i class="fab fa-font-awesome-flag"></i>
+                  Dashboard
+              </a>
+          </li>
+          <li>
+              <a class="nav-link text-white" routerLink="/admin/aviones">
+                  <i class="fas fa-plane"></i>
+                  Aviones
+              </a>
+          </li>
+          <li>
+              <a class="nav-link text-white" routerLink="/admin/destinos">
+                  <i class="fas fa-map"></i>
+                  Destinos
+              </a>
+          </li>
+          <li>
+              <a class="nav-link text-white" routerLink="/admin/vuelos">
+                 <i class="fas fa-route"></i>
+                  Vuelos
+              </a>
+          </li>
+          <li>
+              <a  class="nav-link text-white" routerLink="/admin/reservas">
+                  <i class="far fa-calendar-check"></i>
+                  Reservas
+              </a>
+          </li>
+
+        </ul>
+
+      <div class="">
+
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="../assets/img/descarga.png" alt="" width="32" height="32" class="rounded-circle me-2">
+              <strong>Administrador</strong>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+
+              <li><a class="dropdown-item" routerLink="/">Cerrar Sesión</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      </div>
+    </div>
+  </div>
+</nav>
