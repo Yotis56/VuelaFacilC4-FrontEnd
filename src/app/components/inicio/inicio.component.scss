@@ -1,0 +1,63 @@
+.body-fondo{
+  font-family: "Quicksand",Arial,sans-serif;
+  background-image: url("https://okdiario.com/img/2021/03/09/aviones-655x368.jpeg");
+  background-attachment: fixed;
+  height: 97vh;
+  width: 99%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.contenedor-buscador{
+  background:rgba(54,95,149,0.8);
+  width: 30%;
+}
+
+.contenedor-derecho{
+  width: 70%;
+}
+
+.radio{
+  overflow: hidden;
+  background-color: #145BA4;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+
+.radio-input{
+  display: none;
+}
+
+.radio-label{
+  width: 50%;
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+  background-color: #145BA4;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  transition: background 0.2s;
+}
+
+.radio-input:checked + .radio-label{
+  background-color: #00A5D7;
+}
+
+.boton{
+  background-color: #00A5D7;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.icono{
+  width: 15px;
+  height: 15px;
+}
+
+.bg-claro{
+  background-color: rgba(250,250,250,0.4);
+}
