@@ -16,6 +16,7 @@ import { AvionesComponent } from './components/admin/aviones/aviones.component';
 import { DestinosComponent } from './components/admin/destinos/destinos.component';
 import { AgregarVuelosComponent } from './components/admin/agregar-vuelos/agregar-vuelos.component';
 import { ConsultarReservasComponent } from './components/admin/consultar-reservas/consultar-reservas.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ConsultarReservasComponent } from './components/admin/consultar-reserva
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
