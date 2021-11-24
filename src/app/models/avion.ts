@@ -1,5 +1,5 @@
 export interface avionModel {
-    _id: string,
+    _id?: string,
     matricula: string,
     marca: string,
     modelo: string,

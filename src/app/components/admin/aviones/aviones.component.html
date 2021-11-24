@@ -21,23 +21,23 @@
                         <div class="modal-body">
 
                             <div style="margin:35px;">
-                                <form>
+                                <form [formGroup]="addAvionformGroup">
                                     <div class="row mb-3">
                                         <label for="exampleFormControlInput1" class="col-sm-3 col-form-label">Marca</label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" type="text" placeholder="" aria-label="default input example">
+                                            <input class="form-control" type="text" placeholder="" aria-label="default input example" formControlName="marca">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label for="exampleFormControlInput1" class="col-sm-3 col-form-label">Modelo</label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" type="text" placeholder="" aria-label="default input example">
+                                            <input class="form-control" type="text" placeholder="" aria-label="default input example" formControlName="modelo">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label for="exampleFormControlInput1" class="col-sm-3 col-form-label">Matricula</label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" type="text" placeholder="" aria-label="default input example">
+                                            <input class="form-control" type="text" placeholder="" aria-label="default input example" formControlName="matricula">
                                         </div>
                                     </div>
                                     <!--
@@ -51,13 +51,13 @@
                                     <div class="row mb-3">
                                         <label for="exampleFormControlInput1" class="col-sm-5 col-form-label">Capacidad Economica</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" placeholder="" aria-label="default input example">
+                                            <input class="form-control" type="number" placeholder="" aria-label="default input example" formControlName="capacidadEconomica">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label for="exampleFormControlInput1" class="col-sm-5 col-form-label">Capacidad Ejecutiva</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" placeholder="" aria-label="default input example">
+                                            <input class="form-control" type="number" placeholder="" aria-label="default input example" formControlName="capacidadEjecutiva">
                                         </div>
                                     </div>
                                 </form>
@@ -68,7 +68,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary">Agregar Avion</button>
+                            <button type="submit" class="btn btn-primary" [disabled]="addAvionformGroup.invalid" (click)="agregarAvion()">Agregar Avion</button>
                         </div>
                     </div>
                 </div>

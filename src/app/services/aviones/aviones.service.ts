@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { avionModel } from 'src/app/models/avion';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +21,10 @@ export class AvionesService {
   public obtenerAvion(id: number) {
 
   }
-  public agregarAvion(cancion: any) {
-
+  public agregarAvion(avion: avionModel): Promise<any> {
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/aviones`, avion))
   }
+
   public actualizarAvion(cancion: any, id: number) {
 
   }

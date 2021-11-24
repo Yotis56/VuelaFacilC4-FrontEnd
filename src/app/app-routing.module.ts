@@ -13,20 +13,20 @@ import { VuelosComponent } from './components/vuelos/vuelos.component';
 
 
 const routes: Routes = [
-  {path: '', component: InicioComponent},
-  {path: 'vuelos', component: VuelosComponent},
-  {path: 'checkout', component: CheckoutComponent},
-  {path: 'nosotros', component: NosotrosComponent},
-  {path: 'reservas', component: ReservasComponent},
-  {path: 'admin', component: IndexComponent},
-  {path: 'admin/aviones', component: AvionesComponent},
-  {path: 'admin/destinos', component: DestinosComponent},
-  {path: 'admin/reservas', component: ConsultarReservasComponent},
-  {path: 'admin/vuelos', component: AgregarVuelosComponent},
- ];
+  { path: '', component: InicioComponent },
+  { path: 'vuelos', component: VuelosComponent },
+  { path: 'checkout', component: CheckoutComponent },
+  { path: 'nosotros', component: NosotrosComponent },
+  { path: 'reservas', component: ReservasComponent },
+  { path: 'admin', component: IndexComponent },
+  { path: 'admin/aviones', component: AvionesComponent },
+  { path: 'admin/destinos', component: DestinosComponent },
+  { path: 'admin/reservas', component: ConsultarReservasComponent },
+  { path: 'admin/vuelos', component: AgregarVuelosComponent },
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
