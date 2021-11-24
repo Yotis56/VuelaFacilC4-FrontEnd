@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { destinoModel } from 'src/app/models/detino';
+import { destinoModel } from 'src/app/models/destino';
 import { DestinosService } from 'src/app/services/destinos/destinos.service';
 
 @Component({
@@ -9,15 +9,15 @@ import { DestinosService } from 'src/app/services/destinos/destinos.service';
 })
 export class DestinosComponent implements OnInit {
 
-  public destinos:destinoModel[] = [];           // Array para guardar los aviones de la petición a DB
+  public destinos: destinoModel[] = [];           // Array para guardar los aviones de la petición a DB
 
-  constructor(private destinosService:DestinosService) { }
+  constructor(private destinosService: DestinosService) { }
 
-  async ngOnInit(): Promise <void> {
+  async ngOnInit(): Promise<void> {
     this.destinos = await this.obtenerDestinos();
     console.log(this.destinos);
   }
-  public async obtenerDestinos(): Promise<any>{
+  public async obtenerDestinos(): Promise<any> {
     try {
       const response = await this.destinosService.obtenerDestinos();
       return response;

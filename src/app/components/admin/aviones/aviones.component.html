@@ -99,6 +99,8 @@
                         <th scope="col">Matricula</th>
                         <th scope="col">Capacidad Económica</th>
                         <th scope="col">Capacidad Ejecutiva</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,6 +111,8 @@
                         <td>{{avion.modelo}}</td>
                         <td>{{avion.capacidadEconomica}}</td>
                         <td>{{avion.capacidadEjecutiva}}</td>
+                        <td><button type="button" class="btn btn-outline-success edit-btn"><mat-icon>edit</mat-icon></button></td>
+                        <td><button type="button" class="btn btn-outline-danger delete-btn" (click)="borrarAvion(avion._id)"><mat-icon>delete</mat-icon></button></td>
                     </tr>
                 </tbody>
             </table>
