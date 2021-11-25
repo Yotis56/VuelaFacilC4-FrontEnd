@@ -8,49 +8,39 @@
                 <p>Volar nunca había sido tan fácil</p>
             </div>
         </div>
-        <form action="vuelos" method="">
+        <form [formGroup]="buscarVuelosForm" >
             <div class="d-flex justify-content-center mt-5 mb-4">
                 <div class="d-inline-flex w-70 radio">
-                    <input class="radio-input" type="radio" value="true" name="ida" id="ida" onclick="stateListener()">
+                    <input class="radio-input" type="radio" value="false" id="ida" formControlName="idaVuelta">
                     <label for="ida" class="radio-label">Ida</label>
-                    <input class="radio-input" type="radio" value="false" name="ida" id="idaVuelta" checked onclick="stateListener()">
+                    <input class="radio-input" type="radio" value="true" id="idaVuelta" checked formControlName="idaVuelta">
                     <label for="idaVuelta" class="radio-label">Ida y vuelta</label>
                 </div>
             </div>
             <div class="d-flex mb-4">
                 <div class="w-50">
                     <label class="d-block" for="origen">Origen</label>
-                    <select class="w-90 form-select" id="origen" name="origen">
-                        <option disabled selected >seleccione origen</option>
-                        <option value="BOG" >Bogotá</option>
-                        <option value="BGA" >Bucaramanga</option>
-                        <option value="BAQ" >Barranquilla</option>
-                        <option value="CTG" >Cartagena</option>
-                        <option value="CLO" >Cali</option>
-                        <option value="MDE" >Medellín</option>
+                    <select class="w-90 form-select" id="origen" name="origen" formControlName="origen">
+                        <option  [ngValue]="null" disabled >seleccione origen</option>
+                        <option *ngFor="let ciudad of ciudades" [disabled]="ciudad.IATA === buscarVuelosForm.value.destino" [ngValue]="ciudad.IATA" > {{ciudad.nombre}} </option>
                     </select>
                 </div>
                 <div class="w-50">
                     <label class="d-block" for="destino">Destino</label>
-                    <select class="w-90 form-select" id="destino" name="destino">
-                        <option disabled selected >seleccione origen</option>
-                        <option value="BOG" >Bogotá</option>
-                        <option value="BGA" >Bucaramanga</option>
-                        <option value="BAQ" >Barranquilla</option>
-                        <option value="CTG" >Cartagena</option>
-                        <option value="CLO" >Cali</option>
-                        <option value="MDE" >Medellín</option>
+                    <select class="w-90 form-select" id="destino" name="destino" formControlName="destino">
+                        <option  [ngValue]="null" disabled >seleccione destino</option>
+                        <option *ngFor="let ciudad of ciudades"  [disabled]="ciudad.IATA === buscarVuelosForm.value.origen" [ngValue]="ciudad.IATA" > {{ciudad.nombre}} </option>
                     </select>
                 </div>
             </div>
             <div class="d-flex mb-4">
                 <div class="w-50">
                     <label class="d-block " for="fechaSalida">Fecha de salida</label>
-                    <input type="date" id="fechaSalida" name="fechaSalida" class="w-90 form-control">
+                    <input type="date" id="fechaSalida" name="fechaSalida" class="w-90 form-control" formControlName="fechaSalida">
                 </div>
                 <div class="w-50">
                     <label class="d-block" for="fechaRegreso">Fecha de regreso</label>
-                    <input type="date" id="fechaRegreso" name="fechaRegreso" value=" " class="w-90 form-control">
+                    <input type="date" id="fechaRegreso" name="fechaRegreso" class="w-90 form-control" formControlName="fechaLlegada" [disabled] = "buscarVuelosForm.value.idaVuelta">
                 </div>
             </div>
             <div class="mb-2">
@@ -60,16 +50,16 @@
             <div class="d-flex mb-5">
                 <div class="w-40">
                     <label for="adultos" class="d-block">Adultos: </label>
-                    <input id="adultos" name="adultos" type="number" class="w-90 form-control" min="0" placeholder="0">
+                    <input id="adultos" name="adultos" type="number" class="w-90 form-control" min="0" placeholder="0" formControlName="adultos">
                 </div>
                 <div class="w-40">
                     <label for="infantes" class="d-block">Niños: </label>
-                    <input id="infantes" name="infantes" type="number" class="w-90 form-control" min="0" placeholder="0">
+                    <input id="infantes" name="infantes" type="number" class="w-90 form-control" min="0" placeholder="0" formControlName="niños">
                 </div>
             </div>
             <div class="d-flex justify-content-center">
                 <div class="w-40">
-                    <button type="button" class="w-100 btn btn-primary boton">Buscar</button>
+                    <button type="submit" class="w-100 btn btn-primary boton" [disabled]="buscarVuelosForm.invalid" (click)="buscarVuelos()">Buscar</button>
                 </div>
             </div>
         </form>
