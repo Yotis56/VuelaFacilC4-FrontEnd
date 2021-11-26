@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { InicioService, QueryVuelos } from 'src/app/services/inicio/inicio.service';
 
 
@@ -13,7 +14,7 @@ export class InicioComponent implements OnInit {
 
   public buscarVuelosForm: FormGroup = new FormGroup({})
   public ciudades: Array<{ nombre: string, IATA: string }>
-  constructor(private fb: FormBuilder, private inicioService: InicioService) {
+  constructor(private fb: FormBuilder, private inicioService: InicioService, private router: Router) {
     this.ciudades = [
       { nombre: 'Bogotá', IATA: 'BOG' },
       { nombre: 'Bucaramanga', IATA: 'BGA' },
@@ -30,27 +31,27 @@ export class InicioComponent implements OnInit {
       origen: [null, Validators.required],
       destino: [null, Validators.required],
       fechaSalida: ['', Validators.required],
-      fechaLlegada: [''],
+      fechaLlegada: [{ value: '', disabled: this.buscarVuelosForm.value.idaVuelta }],
       adultos: [0, [Validators.required, Validators.min(1)]],
       niños: [0]
     })
   }
 
-  public async buscarVuelos() {
-    console.log(this.buscarVuelosForm.value)
-
+  public async sendFormData() {
     //Tengo que guardar esta información en la sesión.
+    window.sessionStorage.setItem('initialQuery', JSON.stringify(this.buscarVuelosForm.value))
+    this.router.navigate(['/admin/'])
     //si el idaVuelta es true, tengo que armar dos peticiones a la base de datos.
     //muestro eso en dos páginas
-    const queryIda: QueryVuelos = {
-      IATASalida: this.buscarVuelosForm.value.origen,
-      IATALlegada: this.buscarVuelosForm.value.destino,
-      fecha: this.buscarVuelosForm.value.fechaSalida
-    }
+
   }
 
-  public cambiarIda(value: boolean): void {
-    this.buscarVuelosForm.value.idaVuelta = value
+  public cambiarIda(ida: boolean): void {
+    if (ida === true) {
+      this.buscarVuelosForm.get('fechaLlegada')?.disable()
+    } else {
+      this.buscarVuelosForm.get('fechaLlegada')?.enable()
+    }
   }
 
 }

@@ -16,8 +16,11 @@ export class InicioService {
 
   constructor(private http: HttpClient) { }
 
-  public async buscarVuelos(query: QueryVuelos) {
-    return this.http.get(`${environment.apiUrl}/vuelos/buscar`)
+  public async buscarVuelos(query: { IATASalida: string; IATALlegada: string; fecha: string; }): Promise<any> {
+    //
+
+    const params: HttpParams = new HttpParams({ fromObject: query })
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/vuelos/buscar`, { params }))
 
   }
 }

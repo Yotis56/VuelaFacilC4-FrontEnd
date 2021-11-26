@@ -12,9 +12,9 @@
             <div class="d-flex justify-content-center mt-5 mb-4">
                 <div class="d-inline-flex w-70 radio">
                     <input class="radio-input" type="radio" value="false" id="ida" formControlName="idaVuelta">
-                    <label for="ida" class="radio-label">Ida</label>
+                    <label for="ida" class="radio-label" (click)="cambiarIda(true)">Ida</label>
                     <input class="radio-input" type="radio" value="true" id="idaVuelta" checked formControlName="idaVuelta">
-                    <label for="idaVuelta" class="radio-label">Ida y vuelta</label>
+                    <label for="idaVuelta" class="radio-label" (click)="cambiarIda(false)">Ida y vuelta</label>
                 </div>
             </div>
             <div class="d-flex mb-4">
@@ -40,7 +40,7 @@
                 </div>
                 <div class="w-50">
                     <label class="d-block" for="fechaRegreso">Fecha de regreso</label>
-                    <input type="date" id="fechaRegreso" name="fechaRegreso" class="w-90 form-control" formControlName="fechaLlegada" [disabled] = "buscarVuelosForm.value.idaVuelta">
+                    <input type="date" id="fechaRegreso" name="fechaRegreso" class="w-90 form-control" formControlName="fechaLlegada">
                 </div>
             </div>
             <div class="mb-2">
@@ -59,7 +59,7 @@
             </div>
             <div class="d-flex justify-content-center">
                 <div class="w-40">
-                    <button type="submit" class="w-100 btn btn-primary boton" [disabled]="buscarVuelosForm.invalid" (click)="buscarVuelos()">Buscar</button>
+                    <button type="submit" class="w-100 btn btn-primary boton" [disabled]="buscarVuelosForm.invalid" (click)="sendFormData()">Buscar</button>
                 </div>
             </div>
         </form>
