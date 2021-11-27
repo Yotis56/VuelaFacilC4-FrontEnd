@@ -17,10 +17,11 @@ export class InicioService {
   constructor(private http: HttpClient) { }
 
   public async buscarVuelos(query: { IATASalida: string; IATALlegada: string; fecha: string; }): Promise<any> {
-    //
-
     const params: HttpParams = new HttpParams({ fromObject: query })
-    return lastValueFrom(this.http.get(`${environment.apiUrl}/vuelos/buscar`, { params }))
-
+    try {
+      return await lastValueFrom(this.http.get(`${environment.apiUrl}/vuelos/buscar`, { params }))
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

@@ -40,7 +40,7 @@ export class InicioComponent implements OnInit {
   public async sendFormData() {
     //Tengo que guardar esta información en la sesión.
     window.sessionStorage.setItem('initialQuery', JSON.stringify(this.buscarVuelosForm.value))
-    this.router.navigate(['/admin/'])
+    this.router.navigate(['/vuelos'])
     //si el idaVuelta es true, tengo que armar dos peticiones a la base de datos.
     //muestro eso en dos páginas
 
