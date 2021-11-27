@@ -13,21 +13,29 @@ export class AvionesComponent implements OnInit {
 
   public addAvionformGroup: FormGroup = new FormGroup({})
   public aviones: avionModel[] = [];           // Array para guardar los aviones de la petición a DB
+  public avionActualizar: avionModel | null = null;     //Para almacenar el objeto avion a actualizar
 
   constructor(private avionesService: AvionesService, private router: Router, private formBuilder: FormBuilder) { }
 
   async ngOnInit(): Promise<void> {
-    this.addAvionformGroup = this.formBuilder.group({
-      marca: ['', [Validators.required]],
-      matricula: ['', [Validators.required]],
-      modelo: ['', [Validators.required]],
-      capacidadEjecutiva: ['', [Validators.required]],
-      capacidadEconomica: ['', [Validators.required]]
-    })
-
+    this.buildForm();
+    localStorage.clear();                     // Borrar el localStorage
     this.aviones = await this.obtenerAviones();
+    //console.log(this.addAvionformGroup);
+    const actualizar = localStorage.getItem('avionActualizar');   // Obtengo en actualizar loss valores dle avion a actualizar
+    this.avionActualizar = actualizar ? JSON.parse(actualizar) : null;
+    //console.log(this.avionActualizar);
+    
+  }
 
-    console.log(this.addAvionformGroup)
+  private buildForm(){
+    this.addAvionformGroup = this.formBuilder.group({
+      marca: [this.avionActualizar?.marca, [Validators.required]],
+      matricula: [this.avionActualizar?.matricula, [Validators.required]],
+      modelo: [this.avionActualizar?.modelo, [Validators.required]],
+      capacidadEjecutiva: [this.avionActualizar?.capacidadEjecutiva, [Validators.required]],
+      capacidadEconomica: [this.avionActualizar?.capacidadEconomica, [Validators.required]]
+    })
   }
 
   public async obtenerAviones(): Promise<any> {
@@ -68,5 +76,41 @@ export class AvionesComponent implements OnInit {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  public async actualizarAvion(){
+    var id: string = this.avionActualizar?._id!;
+    console.log(`El ID: ${id}`);
+    const nuevoAvion: avionModel = {
+      ...this.addAvionformGroup.value
+    }
+    console.log(nuevoAvion)
+    try {
+      const response = await this.avionesService.actualizarAvion(id, nuevoAvion)
+      console.log(response)
+      if (response === 'se actualizaron correctamente los parametros') {
+        window.alert('Se actualizó el avión con éxito')
+        window.location.reload()
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  public irActualizarAvion(avion: avionModel){      // Método para enrutar botón de editar al form
+    localStorage.setItem('avionActualizar', JSON.stringify(avion));   // Asigno los valores antiguos al objeto (Modelo / Valor)
+    const actualizar = localStorage.getItem('avionActualizar');   // Obtengo en actualizar loss valores dle avion a actualizar
+    this.avionActualizar = actualizar ? JSON.parse(actualizar) : null;
+    this.buildForm();
+    console.log(this.avionActualizar);
+  }
+
+  public cerrarModal(){
+    localStorage.clear();                     // Borrar el localStorage
+    if (this.avionActualizar !== null){
+      this.avionActualizar = null;
+      this.buildForm();
+    }
+    console.log(this.avionActualizar);
   }
 }
