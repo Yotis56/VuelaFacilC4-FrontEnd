@@ -18,7 +18,7 @@
                           <div class="col-2  text-center align-self-center h6">DIRECTO</div>
                           <div class="col  text-center align-self-center h6">{{ vuelo.ruta.llegada.ciudad }}</div>
 
-                          <div class="col  text-center align-self-center h5"> {{ fechasIda[i].toLocaleString('es-co', {weekday: 'long'}) }} {{fechasIda[i].getDate()}} de {{fechasIda[i].toLocaleString('es-co', {month: 'long'})}}</div>
+                          <div class="col  text-center align-self-center h5"> {{ getDayName(i, 'ida') }}</div>
                           <div class="col  text-center align-self-center">
                               <img src="assets/img/despe.png" alt="" height="25px"/>
                               {{vuelo.ruta.salida.nombre}}
@@ -33,15 +33,18 @@
 
                           <div class="col  text-center align-self-center">({{vuelo.ruta.salida.IATA}} - {{vuelo.ruta.llegada.IATA}}) </div>
                           <div class="col  text-center align-self-center">{{ fechasIda[i].toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'} ) }}</div>
-                          <div class="col-2  text-center align-self-center">(1:15) </div>
-                          <div class="col  text-center align-self-center">7:15 am</div>
+                          <div class="col-2  text-center align-self-center">({{ vuelo.ruta.duracionVuelo.slice(0,5)}}) </div>
+                          <div class="col  text-center align-self-center">{{ addHours(i, 'ida') }}</div>
 
                       </div>
                   </div>
               </div>
               <div class="col-auto  align-self-center">
                   <div class="col  text-center align-self-center h3">$85.000</div>
-                  <button class="btn  btn-primary align-middle" type="button"> <img src="assets/img/iconocarrito.png" alt="" height="25px"/>  Reservar Ahora! </button>
+                  <button class="btn  btn-primary align-middle" type="button" [disabled]="vuelo._id !== idIda && idIda !== '' " (click)="reservar('ida', vuelo._id)"> 
+                    <img src="assets/img/iconocarrito.png" alt="" height="25px"/>  
+                    Reservar Ahora! 
+                </button>
 
               </div>
           </div>
@@ -51,12 +54,12 @@
 
 
 
-  <div  *ngIf="initialQuery.idaVuelta" class="text-center" style="padding-top: 15px; padding-bottom: 15px"> <h3>Seleccionar Vuelo de VUELTA</h3> </div>
+  <div  *ngIf="initialQuery.idaVuelta === 'true' "  class="text-center" style="padding-top: 15px; padding-bottom: 15px"> <h3>Seleccionar Vuelo de VUELTA</h3> </div>
 
 
 
-  <div class="container align-self-center align-items-center" >
-    <div class="shadow p-3 mb-5 bg-body rounded ">
+  <div *ngIf="initialQuery.idaVuelta === 'true' && fechasVuelta" class="container align-self-center align-items-center" >
+    <div *ngFor="let vuelo of vuelosVuelta, let i = index" class="shadow p-3 mb-5 bg-body rounded ">
         <div class="row justify-content-center">
             <div class="col-auto  align-self-center ">
                 <img src="assets/img/aero.jpg" class="rounded-circle" alt="..." height="60px" />
@@ -65,86 +68,44 @@
                 <div class="container align-self-center align-items-cente">
                     <div class="row row-cols-4 align-self-center">
                         <div class="col  text-center align-self-center h6">FECHA</div>
-                        <div class="col  text-center align-self-center h6 ">Bucaramanga</div>
+                        <div class="col  text-center align-self-center h6 ">{{ vuelo.ruta.salida.ciudad}}</div>
                         <div class="col-2  text-center align-self-center h6">DIRECTO</div>
-                        <div class="col  text-center align-self-center h6">Cartagena</div>
+                        <div class="col  text-center align-self-center h6">{{ vuelo.ruta.llegada.ciudad}}</div>
 
-                        <div class="col  text-center align-self-center h5">6 Diciembre </div>
+                        <div class="col  text-center align-self-center h5"> {{getDayName(i, 'vuelta')}} </div>
                         <div class="col  text-center align-self-center">
                             <img src="assets/img/despe.png" alt="" height="25px"/>
-                            Palonegro
+                            {{vuelo.ruta.salida.nombre}}
                         </div>
                         <div class="col-2  text-center align-self-center">
                             <img src="assets/img/rut.png" alt="" height="25px" />
                         </div>
                         <div class="col  text-center align-self-center">
                             <img src="assets/img/ateri.png" alt=""height="25px"/>
-                            Rafael Núñez
+                            {{vuelo.ruta.llegada.nombre}}
                         </div>
 
-                        <div class="col  text-center align-self-center">(BGA - CTG) </div>
-                        <div class="col  text-center align-self-center">6:00 am</div>
-                        <div class="col-2  text-center align-self-center">(1:15) </div>
-                        <div class="col  text-center align-self-center">7:15 am</div>
+                        <div class="col  text-center align-self-center">({{vuelo.ruta.salida.IATA}} - {{vuelo.ruta.llegada.IATA}}) </div>
+                        <div class="col  text-center align-self-center">{{fechasVuelta[i].toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'} )}}</div>
+                        <div class="col-2  text-center align-self-center">({{vuelo.ruta.duracionVuelo.slice(0,5)}}) </div>
+                        <div class="col  text-center align-self-center">{{addHours(i, 'vuelta')}}</div>
 
                     </div>
                 </div>
             </div>
             <div class="col-auto  align-self-center">
                 <div class="col  text-center align-self-center h3">$85.000</div>
-                <button class="btn  btn-primary align-middle" type="button"> <img src="assets/img/iconocarrito.png" alt="" height="25px"/>  Reservar Ahora! </button>
+                <button class="btn  btn-primary align-middle" type="button" [disabled]="vuelo._id !== idVuelta && idVuelta !== ''" (click)="reservar('vuelta', vuelo._id)"> 
+                    <img src="assets/img/iconocarrito.png" alt="" height="25px"/>  
+                    Reservar Ahora! 
+                </button>
             </div>
         </div>
-
-
       </div>
 </div>
 
-<div class="container align-self-center align-items-center" >
-  <div class="shadow p-3 mb-5 bg-body rounded ">
-      <div class="row justify-content-center">
-          <div class="col-auto  align-self-center ">
-              <img src="assets/img/aero.jpg" class="rounded-circle" alt="..." height="60px" />
-          </div>
-          <div class="col-9  align-self-center">
-              <div class="container align-self-center align-items-cente">
-                  <div class="row row-cols-4 align-self-center">
-                      <div class="col  text-center align-self-center h6">FECHA</div>
-                      <div class="col  text-center align-self-center h6 ">Bucaramanga</div>
-                      <div class="col-2  text-center align-self-center h6">DIRECTO</div>
-                      <div class="col  text-center align-self-center h6">Cartagena</div>
-
-                      <div class="col  text-center align-self-center h5">6 Diciembre </div>
-                      <div class="col  text-center align-self-center">
-                          <img src="assets/img/despe.png" alt="" height="25px"/>
-                          Palonegro
-                      </div>
-                      <div class="col-2  text-center align-self-center">
-                          <img src="assets/img/rut.png" alt="" height="25px" />
-                      </div>
-                      <div class="col  text-center align-self-center">
-                          <img src="assets/img/ateri.png" alt=""height="25px"/>
-                          Rafael Núñez
-                      </div>
-
-                      <div class="col  text-center align-self-center">(BGA - CTG) </div>
-                      <div class="col  text-center align-self-center">6:00 am</div>
-                      <div class="col-2  text-center align-self-center">(1:15) </div>
-                      <div class="col  text-center align-self-center">7:15 am</div>
-
-                  </div>
-              </div>
-          </div>
-          <div class="col-auto  align-self-center">
-              <div class="col  text-center align-self-center h3">$85.000</div>
-              <button class="btn  btn-primary align-middle" type="button"> <img src="assets/img/iconocarrito.png" alt="" height="25px"/>  Reservar Ahora! </button>
-          </div>
-      </div>
 
 
-    </div>
-</div>
-
-<a class="w-100 btn btn-primary boton" routerLink="/checkout" role="button">Continuar</a>
+<button class="w-100 btn btn-primary boton" [disabled]="idIda === '' || (initialQuery.idaVuelta === 'true' && idVuelta === '' )"    type="button" (click)="reservarVuelos()">Continuar</button>
 
 <app-footerprincipal></app-footerprincipal>
