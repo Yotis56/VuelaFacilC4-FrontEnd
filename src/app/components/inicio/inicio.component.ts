@@ -33,7 +33,7 @@ export class InicioComponent implements OnInit {
       fechaSalida: ['', Validators.required],
       fechaLlegada: [{ value: '', disabled: this.buscarVuelosForm.value.idaVuelta }],
       adultos: [0, [Validators.required, Validators.min(1)]],
-      niños: [0]
+      kids: [0]
     })
   }
 

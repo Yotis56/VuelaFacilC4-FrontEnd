@@ -11,33 +11,34 @@
           <div class="col-md-5 col-lg-4 order-md-last">
               <h4 class="d-flex justify-content-between align-items-center mb-3">
                   <span class="text-primary">Vuelos seleccionados</span>
-                  <span class="badge bg-primary rounded-pill">2</span>
+                  <span class="badge bg-primary rounded-pill">{{ vuelos[1] === '' ? 1 : 2 }}</span>
               </h4>
               <ul class="list-group mb-3">
                   <li class="list-group-item d-flex justify-content-between lh-sm">
                       <div>
                           <h6 class="my-0">Vuelo de IDA</h6>
-                          <small class="text-muted">ID Vuelo 17748</small>
+                          <small class="text-muted">ID vuelo {{vuelos[0]._id.slice(0,6) }}</small>
                       </div>
-                      <span class="text-muted">$85.000</span>
+                      <span class="text-muted">{{ getPriceFormat(vuelos[0].ruta.distancia)}}</span>
                   </li>
-                  <li class="list-group-item d-flex justify-content-between lh-sm">
+                  <li *ngIf="vuelos[1] !== '' " class="list-group-item d-flex justify-content-between lh-sm">
                       <div>
                           <h6 class="my-0">Vuelo de VUELTA</h6>
-                          <small class="text-muted">ID Vuelo 18554</small>
+                          <small class="text-muted">ID Vuelo {{vuelos[1]._id.slice(0,6) }}</small>
                       </div>
-                      <span class="text-muted">$85.000</span>
+                      <span class="text-muted">{{getPriceFormat(vuelos[1].ruta.distancia)}}</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-sm">
                       <div>
                           <h6 class="my-0">Cantidad de Pasajeros</h6>
                           <small class="text-muted">Adultos</small>
+                          <small *ngIf="initialQuery.kids > 0" class="text-muted">Niños</small>
                       </div>
-                      <span class="text-muted">2</span>
+                      <span class="text-muted">{{ initialQuery.adultos}}</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between">
                       <span>Total Parcial (COP)</span>
-                      <strong>$340.000</strong>
+                      <strong>{{getPriceFormat(vuelos[1].ruta.distancia + vuelos[0].ruta.distancia)}}</strong>
                   </li>
                   <li class="list-group-item d-flex justify-content-between bg-light">
                       <div class="text-success">

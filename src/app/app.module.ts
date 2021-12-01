@@ -20,6 +20,7 @@ import { ConsultarReservasComponent } from './components/admin/consultar-reserva
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AsientosComponent } from './components/asientos/asientos.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AvionesComponent,
     DestinosComponent,
     AgregarVuelosComponent,
-    ConsultarReservasComponent
+    ConsultarReservasComponent,
+    AsientosComponent,
   ],
   imports: [
     BrowserModule,
