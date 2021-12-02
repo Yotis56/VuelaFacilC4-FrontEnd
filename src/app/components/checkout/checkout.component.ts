@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -70,5 +71,8 @@ export class CheckoutComponent implements OnInit {
     return codigo === 'vuelaFacil30' ? true : false
   }
 
-
+  public submitReserva = () => {
+    console.log(this.clientForm.value.name)
+    console.log(this.clientForm.value)
+  }
 }
