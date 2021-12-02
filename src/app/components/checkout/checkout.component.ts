@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-checkout',
@@ -9,11 +10,18 @@ export class CheckoutComponent implements OnInit {
 
   public vuelos: any[] = []
   public initialQuery: any
+  public codigoPromocion: FormControl = new FormControl('')
+  public precioTotal: number = 0
+  public precioFinal: number = 0
+  public hasDiscount: boolean = false
+  public clientForm: FormGroup = new FormGroup({})
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.getSessionData()
+    this.getTotalPrice()
+    this.createClientForm()
   }
 
   public getSessionData() {
@@ -23,15 +31,44 @@ export class CheckoutComponent implements OnInit {
     this.initialQuery = typeof (queryData) === 'string' ? JSON.parse(queryData) : null
   }
 
-  getPriceFormat = (distance: number): string => {
-    const options = { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }
-    let price = distance * 200.353
-    return new Intl.NumberFormat('es-CO', options).format(price)
+  private createClientForm = () => {
+    this.clientForm = this.fb.group({
+      nombres: ['', Validators.required],
+      apellidos: ['', Validators.required],
+      cedula: ['', Validators.required],
+      celular: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
+      correo: ['', [Validators.required, Validators.email]],
+      direccion: ['', Validators.required],
+      ciudad: ['', Validators.required],
+      barrio: [''],
+    })
   }
 
+  public getPrice = (distance: number): number => {
+    return distance * 200.353
+  }
 
-  //falta modoficar el template para mostrar si hay niños.
-  //el código de promoción solo se debería mostrar al validar el mismo. Si no se ha ingresado nada, no se muestra el campo
-  // Hacer que si hay código de promoción, reste cierto valor al total
+  public getPriceFormat = (price: number): string => {
+    const options = { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }
+    return new Intl.NumberFormat('es-CO', options).format(price)
+  }
+  public getTotalPrice = () => {
+    const precioIda = this.vuelos[0].ruta.distancia * 200.353
+    const precioVuelta = this.vuelos[1] !== '' ? this.vuelos[1].ruta.distancia * 200.353 : 0
+    this.precioTotal = precioIda + precioVuelta
+    this.precioFinal = this.precioTotal
+  }
+
+  aplicarDescuento = () => {
+    if (!this.hasDiscount) {
+      this.precioFinal = this.precioFinal * 0.7
+      this.hasDiscount = true
+    }
+  }
+
+  esValido(codigo: string): boolean {
+    return codigo === 'vuelaFacil30' ? true : false
+  }
+
 
 }
