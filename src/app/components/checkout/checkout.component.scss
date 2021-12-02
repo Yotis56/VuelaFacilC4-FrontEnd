@@ -1,0 +1,14 @@
+.promocion-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.pasajeros-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  & div {
+    display: flex;
+    flex-direction: column;
+  }
+}

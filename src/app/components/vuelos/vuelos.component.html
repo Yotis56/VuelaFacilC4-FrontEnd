@@ -40,8 +40,8 @@
                   </div>
               </div>
               <div class="col-auto  align-self-center">
-                  <div class="col  text-center align-self-center h3">$85.000</div>
-                  <button class="btn  btn-primary align-middle" type="button" [disabled]="vuelo._id !== idIda && idIda !== '' " (click)="reservar('ida', vuelo._id)"> 
+                  <div class="col  text-center align-self-center h3">{{ getPriceFormat(vuelo.ruta.distancia) }}</div>
+                  <button class="btn  btn-primary align-middle" type="button" [disabled]="vuelo !== vuelosSeleccionados[0] && vuelosSeleccionados[0] !== '' " (click)="reservar('ida', vuelo)"> 
                     <img src="assets/img/iconocarrito.png" alt="" height="25px"/>  
                     Reservar Ahora! 
                 </button>
@@ -94,8 +94,8 @@
                 </div>
             </div>
             <div class="col-auto  align-self-center">
-                <div class="col  text-center align-self-center h3">$85.000</div>
-                <button class="btn  btn-primary align-middle" type="button" [disabled]="vuelo._id !== idVuelta && idVuelta !== ''" (click)="reservar('vuelta', vuelo._id)"> 
+                <div class="col  text-center align-self-center h3">{{getPriceFormat(vuelo.ruta.distancia)}}</div>
+                <button class="btn  btn-primary align-middle" type="button" [disabled]="vuelo !== vuelosSeleccionados[1] && vuelosSeleccionados[1] !== ''" (click)="reservar('vuelta', vuelo)"> 
                     <img src="assets/img/iconocarrito.png" alt="" height="25px"/>  
                     Reservar Ahora! 
                 </button>
@@ -106,6 +106,6 @@
 
 
 
-<button class="w-100 btn btn-primary boton" [disabled]="idIda === '' || (initialQuery.idaVuelta === 'true' && idVuelta === '' )"    type="button" (click)="reservarVuelos()">Continuar</button>
+<button class="w-100 btn btn-primary boton" [disabled]="vuelosSeleccionados[0] === '' || (initialQuery.idaVuelta === 'true' && vuelosSeleccionados[1] === '' )"    type="button" (click)="reservarVuelos()">Continuar</button>
 
 <app-footerprincipal></app-footerprincipal>

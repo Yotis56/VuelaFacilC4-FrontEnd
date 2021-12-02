@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Vuelos } from 'src/app/models/VueloInterface';
 import { InicioService } from 'src/app/services/inicio/inicio.service';
+import getPriceFormat from 'src/app/utilities/getPrice';
 
 
 @Component({
@@ -15,8 +16,8 @@ export class VuelosComponent implements OnInit {
   public vuelosVuelta: any
   public fechasIda!: Date[];
   public fechasVuelta?: Date[];
-  public idIda: string = ''
-  public idVuelta?: string = ''
+  public vuelosSeleccionados: any[] = ['', '']
+
 
   constructor(private router: Router, private inicioService: InicioService) {
 
@@ -58,6 +59,7 @@ export class VuelosComponent implements OnInit {
         this.fechasVuelta = this.vuelosVuelta.map((vuelo: Vuelos) => new Date(vuelo.fechaVuelo))
       }
     }
+
   }
 
   public addHours(index: number, tipo: string): string {
@@ -98,6 +100,12 @@ export class VuelosComponent implements OnInit {
     return ''
   }
 
+  getPriceFormat = (distance: number): string => {
+    const options = { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }
+    let price = distance * 200.353
+    return new Intl.NumberFormat('es-CO', options).format(price)
+  }
+
   public async buscarVuelos(query: { IATASalida: string; IATALlegada: string; fecha: string; }): Promise<Array<any>> {
     try {
       const response = await this.inicioService.buscarVuelos(query)
@@ -109,33 +117,33 @@ export class VuelosComponent implements OnInit {
     }
   }
 
-  public reservar(type: string, id: string): void {
+  public reservar(type: string, vuelo: any): void {
     //Método que guarda el Id de los vuelos al darle click al botón "Reservar Ahora"
     switch (type) {
       case 'ida':
-        if (this.idIda === id) {
-          this.idIda = ''
+        if (this.vuelosSeleccionados[0] === vuelo) {
+          this.vuelosSeleccionados[0] = ''
         } else {
-          this.idIda = id
+          this.vuelosSeleccionados[0] = vuelo
         }
         break
       case 'vuelta':
-        if (this.idVuelta === id) {
-          this.idVuelta = ''
+        if (this.vuelosSeleccionados[1] === vuelo) {
+          this.vuelosSeleccionados[1] = ''
         } else {
-          this.idVuelta = id
+          this.vuelosSeleccionados[1] = vuelo
         }
         break
       default:
         return
     }
-    console.log(this.idIda)
+
   }
 
   public reservarVuelos() {
-    window.sessionStorage.setItem('idVueloIda', this.idIda)
-    if (this.idVuelta !== undefined && this.idVuelta !== '') window.sessionStorage.setItem('idVueloVuelta', this.idVuelta)
-    this.router.navigate(['/checkout'])
+
+    window.sessionStorage.setItem('vuelosSeleccionados', JSON.stringify(this.vuelosSeleccionados))
+    this.router.navigate(['checkout'])
   }
 
 }

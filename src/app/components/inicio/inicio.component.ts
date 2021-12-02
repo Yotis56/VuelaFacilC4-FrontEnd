@@ -14,7 +14,7 @@ export class InicioComponent implements OnInit {
 
   public buscarVuelosForm: FormGroup = new FormGroup({})
   public ciudades: Array<{ nombre: string, IATA: string }>
-  constructor(private fb: FormBuilder, private inicioService: InicioService, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.ciudades = [
       { nombre: 'Bogotá', IATA: 'BOG' },
       { nombre: 'Bucaramanga', IATA: 'BGA' },
@@ -33,7 +33,7 @@ export class InicioComponent implements OnInit {
       fechaSalida: ['', Validators.required],
       fechaLlegada: [{ value: '', disabled: this.buscarVuelosForm.value.idaVuelta }],
       adultos: [0, [Validators.required, Validators.min(1)]],
-      niños: [0]
+      kids: [0]
     })
   }
 

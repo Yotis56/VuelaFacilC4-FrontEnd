@@ -13,7 +13,7 @@
                 <div class="d-inline-flex w-70 radio">
                     <input class="radio-input" type="radio" value="false" id="ida" formControlName="idaVuelta">
                     <label for="ida" class="radio-label" (click)="cambiarIda(true)">Ida</label>
-                    <input class="radio-input" type="radio" value="true" id="idaVuelta" checked formControlName="idaVuelta">
+                    <input class="radio-input" type="radio" value="true" id="idaVuelta" checked selected formControlName="idaVuelta">
                     <label for="idaVuelta" class="radio-label" (click)="cambiarIda(false)">Ida y vuelta</label>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="w-40">
                     <label for="infantes" class="d-block">Niños: </label>
-                    <input id="infantes" name="infantes" type="number" class="w-90 form-control" min="0" placeholder="0" formControlName="niños">
+                    <input id="infantes" name="infantes" type="number" class="w-90 form-control" min="0" placeholder="0" formControlName="kids">
                 </div>
             </div>
             <div class="d-flex justify-content-center">
