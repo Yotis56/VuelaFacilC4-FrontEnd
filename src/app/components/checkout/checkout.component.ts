@@ -20,19 +20,7 @@ export class CheckoutComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.getSessionData()
-    this.getTotalPrice()
-    this.createClientForm()
-  }
 
-  public getSessionData() {
-    const vuelosData = window.sessionStorage.getItem('vuelosSeleccionados')
-    this.vuelos = typeof (vuelosData) === 'string' ? JSON.parse(vuelosData) : []
-    const queryData = window.sessionStorage.getItem('initialQuery')
-    this.initialQuery = typeof (queryData) === 'string' ? JSON.parse(queryData) : null
-  }
-
-  private createClientForm = () => {
     this.clientForm = this.fb.group({
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
@@ -43,6 +31,15 @@ export class CheckoutComponent implements OnInit {
       ciudad: ['', Validators.required],
       barrio: [''],
     })
+    this.getSessionData()
+    this.getTotalPrice()
+  }
+
+  public getSessionData() {
+    const vuelosData = window.sessionStorage.getItem('vuelosSeleccionados')
+    this.vuelos = typeof (vuelosData) === 'string' ? JSON.parse(vuelosData) : []
+    const queryData = window.sessionStorage.getItem('initialQuery')
+    this.initialQuery = typeof (queryData) === 'string' ? JSON.parse(queryData) : null
   }
 
   public getPrice = (distance: number): number => {
@@ -71,8 +68,25 @@ export class CheckoutComponent implements OnInit {
     return codigo === 'vuelaFacil30' ? true : false
   }
 
-  public submitReserva = () => {
-    console.log(this.clientForm.value.name)
-    console.log(this.clientForm.value)
+  private checkValidity() {
+    document.querySelectorAll('.cliente-form .form-control').forEach((input) => {
+      //let name:string  = input.id
+      switch (this.clientForm.controls[input.id].status) {
+        case 'INVALID':
+          input.classList.add('invalid-input')
+          break;
+        case 'VALID':
+          input.classList.add('valid-input')
+          break
+        default:
+          break;
+      }
+
+    })
+
   }
+  public submitReserva = () => {
+    this.checkValidity()
+  }
+
 }
