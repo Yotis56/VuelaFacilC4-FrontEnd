@@ -1,177 +1,178 @@
 <div id="principal14">
-  <div style="position: fixed; z-index: -99; width: 100%; height:auto" >
-    <!-- <iframe width="100%" height="100%" src="https://youtube.com/embed/BZqkFRxOl-0?autoplay=1&controls=0&showinfo=0&autohide=1" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; autoplay=1; controls=0" allowfullscreen></iframe> -->
-    <video width="100%" height="auto" autoplay muted>
+    <div style="position: fixed; z-index: -99; width: 100%; height:auto">
+        <!-- <iframe width="100%" height="100%" src="https://youtube.com/embed/BZqkFRxOl-0?autoplay=1&controls=0&showinfo=0&autohide=1" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; autoplay=1; controls=0" allowfullscreen></iframe> -->
+        <video width="100%" height="auto" autoplay muted>
       <source src="assets/videos/AV1.mp4" type="video/mp4">
       Your browser does not support the <code>video</code> tag.
   </video>
-  </div>
+    </div>
 
 
-<div class="d-flex">
-    <div class="vh-100 py-3 px-3 fs-6 text-light contenedor-buscador">
-        <div class="d-flex">
-            <div class="w-15 me-4">
-                <img src="../../../assets/img/logo-blanco.png" alt="logo vuelaFacil" width="100 px">
-            </div>
-            <div class="d-flex fw-bold fst-italic align-items-center">
-                <p>Volar nunca había sido tan fácil</p>
-            </div>
-        </div>
-        <form [formGroup]="buscarVuelosForm" >
-            <div class="d-flex justify-content-center mt-5 mb-4">
-                <div class="d-inline-flex w-70 radio">
-                    <input class="radio-input" type="radio" value="false" id="ida" formControlName="idaVuelta">
-                    <label for="ida" class="radio-label" (click)="cambiarIda(true)">Ida</label>
-                    <input class="radio-input" type="radio" value="true" id="idaVuelta" checked selected formControlName="idaVuelta">
-                    <label for="idaVuelta" class="radio-label" (click)="cambiarIda(false)">Ida y vuelta</label>
+    <div class="d-flex">
+        <div class="vh-100 py-3 px-3 fs-6 text-light contenedor-buscador">
+            <div class="d-flex">
+                <div class="w-15 me-4">
+                    <img src="../../../assets/img/logo-blanco.png" alt="logo vuelaFacil" width="100 px">
+                </div>
+                <div class="d-flex fw-bold fst-italic align-items-center">
+                    <p>Volar nunca había sido tan fácil</p>
                 </div>
             </div>
-            <div class="d-flex mb-4">
-                <div class="w-50">
-                    <label class="d-block" for="origen">Origen</label>
-                    <select class="w-90 form-select" id="origen" name="origen" formControlName="origen">
+            <form [formGroup]="buscarVuelosForm">
+                <div class="d-flex justify-content-center mt-5 mb-4">
+                    <div class="d-inline-flex w-70 radio">
+                        <input class="radio-input" type="radio" value="false" id="ida" formControlName="idaVuelta">
+                        <label for="ida" class="radio-label" (click)="cambiarIda(true)">Ida</label>
+                        <input class="radio-input" type="radio" value="true" id="idaVuelta" checked selected formControlName="idaVuelta">
+                        <label for="idaVuelta" class="radio-label" (click)="cambiarIda(false)">Ida y vuelta</label>
+                    </div>
+                </div>
+                <div class="d-flex mb-4">
+                    <div class="w-50">
+                        <label class="d-block" for="origen">Origen</label>
+                        <select class="w-90 form-select" id="origen" name="origen" formControlName="origen">
                         <option  [ngValue]="null" disabled >seleccione origen</option>
                         <option *ngFor="let ciudad of ciudades" [disabled]="ciudad.IATA === buscarVuelosForm.value.destino" [ngValue]="ciudad.IATA" > {{ciudad.nombre}} </option>
                     </select>
-                </div>
-                <div class="w-50">
-                    <label class="d-block" for="destino">Destino</label>
-                    <select class="w-90 form-select" id="destino" name="destino" formControlName="destino">
+                    </div>
+                    <div class="w-50">
+                        <label class="d-block" for="destino">Destino</label>
+                        <select class="w-90 form-select" id="destino" name="destino" formControlName="destino">
                         <option  [ngValue]="null" disabled >seleccione destino</option>
                         <option *ngFor="let ciudad of ciudades"  [disabled]="ciudad.IATA === buscarVuelosForm.value.origen" [ngValue]="ciudad.IATA" > {{ciudad.nombre}} </option>
                     </select>
+                    </div>
                 </div>
-            </div>
-            <div class="d-flex mb-4">
-                <div class="w-50">
-                    <label class="d-block " for="fechaSalida">Fecha de salida</label>
-                    <input type="date" id="fechaSalida" name="fechaSalida" class="w-90 form-control" formControlName="fechaSalida">
+                <div class="d-flex mb-4">
+                    <div class="w-50">
+                        <label class="d-block " for="fechaSalida">Fecha de salida</label>
+                        <input type="date" id="fechaSalida" name="fechaSalida" class="w-90 form-control" formControlName="fechaSalida">
+                    </div>
+                    <div class="w-50">
+                        <label class="d-block" for="fechaRegreso">Fecha de regreso</label>
+                        <input type="date" id="fechaRegreso" name="fechaRegreso" class="w-90 form-control" formControlName="fechaLlegada">
+                    </div>
                 </div>
-                <div class="w-50">
-                    <label class="d-block" for="fechaRegreso">Fecha de regreso</label>
-                    <input type="date" id="fechaRegreso" name="fechaRegreso" class="w-90 form-control" formControlName="fechaLlegada">
+                <div class="mb-2">
+                    <label>Cantidad de pasajeros</label>
                 </div>
-            </div>
-            <div class="mb-2">
-                <label>Cantidad de pasajeros</label>
-            </div>
 
-            <div class="d-flex mb-5">
-                <div class="w-40">
-                    <label for="adultos" class="d-block">Adultos: </label>
-                    <input id="adultos" name="adultos" type="number" class="w-90 form-control" min="0" placeholder="0" formControlName="adultos">
+                <div class="d-flex mb-5">
+                    <div class="w-40">
+                        <label for="adultos" class="d-block">Adultos: </label>
+                        <input id="adultos" name="adultos" type="number" class="w-90 form-control" min="0" placeholder="0" formControlName="adultos">
+                    </div>
+                    <div class="w-40">
+                        <label for="infantes" class="d-block">Niños: </label>
+                        <input id="infantes" name="infantes" type="number" class="w-90 form-control" min="0" placeholder="0" formControlName="kids">
+                    </div>
                 </div>
-                <div class="w-40">
-                    <label for="infantes" class="d-block">Niños: </label>
-                    <input id="infantes" name="infantes" type="number" class="w-90 form-control" min="0" placeholder="0" formControlName="kids">
+                <div class="d-flex justify-content-center">
+                    <div class="w-40 d-grid gap-2 col-6 mx-auto">
+                        <button type="submit" class="w-100 btn btn-primary boton btn-lg" [disabled]="buscarVuelosForm.invalid" (click)="sendFormData()">Buscar</button>
+                    </div>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <div class="w-40 d-grid gap-2 col-6 mx-auto">
-                    <button type="submit" class="w-100 btn btn-primary boton btn-lg" [disabled]="buscarVuelosForm.invalid" (click)="sendFormData()">Buscar</button>
-                </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
 
 
-    <div class="vh-100 py-3 px-3 contenedor-derecho">
-        <header class="mb-3">
-            <div class="d-flex justify-content-end">
-                <div class="dropdown">
-                    <a href="#" class="fw-bold text-decoration-none text-dark dropdown-toggle" id="dropdownLogin" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="me-1">
+        <div class="vh-100 py-3 px-3 contenedor-derecho">
+            <header class="mb-3">
+                <div class="d-flex justify-content-end">
+                    <div class="dropdown">
+                        <a href="#" class="fw-bold text-decoration-none text-dark dropdown-toggle" id="dropdownLogin" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="me-1">
                             <img class="icono" src="../../../assets/img/user.png" alt="icon-user"/>
                         </span> LogIn
-                    </a>
+                        </a>
 
-                    <div class="dropdown-menu p-2" aria-labelledby="dropdownLogin">
+                        <div class="dropdown-menu p-2" aria-labelledby="dropdownLogin">
 
-                        <label class="w-100 text-center">LogIn</label>
+                            <label class="w-100 text-center">LogIn</label>
 
 
-                        <form action="" method="get">
-                            <div class="w-100 px-2 mt-2 mb-2">
-                                <label for="usuario" class="d-block">Usuario </label>
-                                <input  id="usuario" type="text" class="form-control">
-                            </div>
-                            <div class="w-100 px-2 mb-2">
-                                <label for="pass" class="d-block">Contraseña </label>
-                                <input  id="pass" type="password" class="form-control">
-                            </div>
-                            <div class="w-100 px-2 mt-2 mb-2">
-                                <input type="submit" value="Iniciar sesión" class="w-100 btn btn-primary boton">
-                            </div>
-                        </form>
+                            <form action="" method="get">
+                                <div class="w-100 px-2 mt-2 mb-2">
+                                    <label for="usuario" class="d-block">Usuario </label>
+                                    <input id="usuario" type="text" class="form-control">
+                                </div>
+                                <div class="w-100 px-2 mb-2">
+                                    <label for="pass" class="d-block">Contraseña </label>
+                                    <input id="pass" type="password" class="form-control">
+                                </div>
+                                <div class="w-100 px-2 mt-2 mb-2">
+                                    <input type="submit" value="Iniciar sesión" class="w-100 btn btn-primary boton" routerLink="/admin">
+                                </div>
+                            </form>
 
+
+
+                        </div>
 
 
                     </div>
-
-
                 </div>
-            </div>
 
-        </header>
+            </header>
 
 
-        <nav class="nav navbar-light justify-content-end bg-claro">
-            <a class="fw-medium nav-link active" routerLink="/">
+            <nav class="nav navbar-light justify-content-end bg-claro">
+                <a class="fw-medium nav-link active" routerLink="/">
                 Inicio
             </a>
-            <a class="nav-link fw-medium" routerLink="/reservas">
+                <a class="nav-link fw-medium" routerLink="/reservas">
                 Reservas
             </a>
-            <a class="nav-link fw-medium" routerLink="/nosotros">
+                <a class="nav-link fw-medium" routerLink="/nosotros">
                 Nosotros
             </a>
-        </nav>
+            </nav>
 
-        <main style="height:82%;">
+            <main style="height:82%;">
 
-        </main>
+            </main>
 
-        <footer class="nav navbar-light d-flex justify-content-between bg-claro">
-            <div>
-                <p class="m-0 py-2 px-3 fw-medium">Copyright © 2021 VuelaFacil. Todos los derechos reservados</p>
-            </div>
-
-            <div class="d-flex">
-                <div class="me-2">
-                    <img src="assets/img/facebook.png" alt="facebook" class="mt-2" />
+            <footer class="nav navbar-light d-flex justify-content-between bg-claro">
+                <div>
+                    <p class="m-0 py-2 px-3 fw-medium">Copyright © 2021 VuelaFacil. Todos los derechos reservados</p>
                 </div>
-                <div class="me-2">
-                    <img src="assets/img/instagram.png" alt="instagram" class="mt-2" />
+
+                <div class="d-flex">
+                    <div class="me-2">
+                        <img src="assets/img/facebook.png" alt="facebook" class="mt-2" />
+                    </div>
+                    <div class="me-2">
+                        <img src="assets/img/instagram.png" alt="instagram" class="mt-2" />
+                    </div>
+                    <div class="me-3">
+                        <img src="assets/img/twitter.png" alt="twitter" class="mt-2" />
+                    </div>
                 </div>
-                <div class="me-3">
-                    <img src="assets/img/twitter.png" alt="twitter" class="mt-2" />
-                </div>
-            </div>
-        </footer>
+            </footer>
+        </div>
     </div>
-</div>
 </div>
 
 <script type="text/javascript">
-  //variables
-  var usua = null;
-  var contra = null;
+    //variables
+    var usua = null;
+    var contra = null;
 
-  function miFuncion(){
-    alert("Activaste la funcion miFuncion()");
-  }
+    function miFuncion() {
+        alert("Activaste la funcion miFuncion()");
+    }
 
-      //submit
+    //submit
 
-      document.getElementById("clickMe").onclick = doFunction;
-      document.getElementById("clickMe").onclick = function () { alert('hello!'); };
+    document.getElementById("clickMe").onclick = doFunction;
+    document.getElementById("clickMe").onclick = function() {
+        alert('hello!');
+    };
 
-      function doFunction(){
+    function doFunction() {
         usua = document.getElementById("usuario")[0].value;
         contra = document.getElementById("pass")[0].value;
 
         alert("INICIAR SESION AHORA");
-      };
-
+    };
 </script>
