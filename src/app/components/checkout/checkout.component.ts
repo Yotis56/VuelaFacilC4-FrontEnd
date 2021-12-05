@@ -1,6 +1,7 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ClientesService } from 'src/app/services/clientes/clientes.service';
 
 @Component({
   selector: 'app-checkout',
@@ -17,7 +18,7 @@ export class CheckoutComponent implements OnInit {
   public hasDiscount: boolean = false
   public clientForm: FormGroup = new FormGroup({})
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private clientesService: ClientesService) { }
 
   ngOnInit(): void {
 
@@ -81,12 +82,44 @@ export class CheckoutComponent implements OnInit {
         default:
           break;
       }
-
     })
 
   }
   public submitReserva = () => {
     this.checkValidity()
+    if (this.clientForm.valid) {
+      this.crearReserva()
+    }
   }
 
+  private async checkCliente(): Promise<boolean | undefined> {
+    //regresa true si el cliente existe, false si no. Y undefined si encontró algún error.
+    try {
+      const cliente = await this.clientesService.obtenerClientePorCc(this.clientForm.value.cedula)
+      if (cliente !== undefined && cliente.status === 404) {
+        return false
+      } else {
+        return true
+      }
+    } catch (error) {
+      console.log(error)
+      return undefined
+    }
+  }
+
+  private crearCliente() {
+    //Acá tengo que crear un objeto con los datos del cliente y mandarlo al servicio
+    //programar servicio de crear cliente
+  }
+
+  private crearReserva() {
+    //Reviso si el cliente existe
+    if (!this.checkCliente()) this.crearCliente()
+
+    //si existe, no hago nada. Si no existe, tengo que crearlo.
+    //Creo la reserva: asigno el número de adultos, de niños, el documento del cliente, tarifa (no se ha programado) y id de vuelo
+    //En el vuelo, tengo que hacer un update con dos vuelos menos
+
+    //guardo la reserva.
+  }
 }
