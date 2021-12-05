@@ -54,5 +54,33 @@ export class InicioComponent implements OnInit {
     }
   }
 
+  public setDateIda(): void{
+    // Obtener fecha si la hay
+    var regreso: string = (<HTMLInputElement>document.getElementById("fechaRegreso")).value;
 
+    // Min
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementsByName("fechaSalida")[0].setAttribute('min', today);
+
+    // Max
+    if(regreso!==''){
+      document.getElementsByName("fechaSalida")[0].setAttribute('max', regreso);
+    }else{
+      document.getElementsByName("fechaSalida")[0].setAttribute('max', '2050-01-01');
+    }
+
+  }
+
+  public setDateRegreso(): void{
+    // Obtener fecha si la hay
+    var ida: string = (<HTMLInputElement>document.getElementById("fechaSalida")).value;
+
+    // Min
+    if(ida!==''){
+      document.getElementsByName("fechaRegreso")[0].setAttribute('min', ida);
+    }else{
+      var today = new Date().toISOString().split('T')[0];
+      document.getElementsByName("fechaRegreso")[0].setAttribute('min', today);
+    }
+  }
 }

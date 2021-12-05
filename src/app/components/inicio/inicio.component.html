@@ -46,13 +46,14 @@
                 <div class="d-flex mb-4">
                     <div class="w-50">
                         <label class="d-block " for="fechaSalida">Fecha de salida</label>
-                        <input type="date" id="fechaSalida" name="fechaSalida" class="w-90 form-control" formControlName="fechaSalida">
+                        <input type="date" id="fechaSalida" name="fechaSalida" class="w-90 form-control" formControlName="fechaSalida" min='2020-12-05' (click)="setDateIda()">
                     </div>
                     <div class="w-50">
                         <label class="d-block" for="fechaRegreso">Fecha de regreso</label>
-                        <input type="date" id="fechaRegreso" name="fechaRegreso" class="w-90 form-control" formControlName="fechaLlegada">
+                        <input type="date" id="fechaRegreso" name="fechaRegreso" class="w-90 form-control" formControlName="fechaLlegada" min='2020-12-05' (click)="setDateRegreso()">
                     </div>
                 </div>
+
                 <div class="mb-2">
                     <label>Cantidad de pasajeros</label>
                 </div>
