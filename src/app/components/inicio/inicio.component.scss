@@ -1,13 +1,8 @@
-.body-fondo{
-  font-family: "Quicksand",Arial,sans-serif;
-  background-image: url("https://okdiario.com/img/2021/03/09/aviones-655x368.jpeg");
-
+#principal {
   background-attachment: fixed;
-  height: 97vh;
-  width: 99%;
-  background-position: center;
-  background-repeat: no-repeat;
+
 }
+
 
 .contenedor-buscador{
   background:rgba(54,95,149,0.8);
@@ -31,9 +26,9 @@
 }
 
 .radio-label{
-  width: 50%;
+  width: 120px;
   text-align: center;
-  padding: 5px;
+  padding: 15px;
   cursor: pointer;
   background-color: #145BA4;
   -webkit-border-radius: 20px;
