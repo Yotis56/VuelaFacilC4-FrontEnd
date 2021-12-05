@@ -79,19 +79,19 @@
           <!-- Formulario de datos del cliente -->
           <div class="col-md-7 col-lg-8">
               <h4 class="mb-3">Facturación</h4>
-              <form [formGroup]="clientForm" class="needs-validation" novalidate (ngSubmit)="submitReserva()">
+              <form [formGroup]="clientForm" class="cliente-form"  (ngSubmit)="submitReserva()" novalidate >
                   <div class="row g-3">
                       <div class="col-sm-6">
-                          <label for="firstName" class="form-label">Nombres</label>
-                          <input formGroupName="nombres" type="text" class="form-control" id="firstName" placeholder="" required>
-                          <div class="invalid-feedback">
+                          <label for="nombres" class="form-label">Nombres</label>
+                          <input formControlName="nombres" type="text" class="form-control" id="nombres" placeholder="" required >
+                          <div class="invalid-feedback" >  
                               Se requiere un nombre válido.
                           </div>
                       </div>
 
                       <div class="col-sm-6">
-                          <label for="lastName" class="form-label">Apellidos</label>
-                          <input formGroupName="apellidos" type="text" class="form-control" id="lastName" placeholder=""  required>
+                          <label for="apellidos" class="form-label">Apellidos</label>
+                          <input formControlName="apellidos" type="text" class="form-control" id="apellidos" placeholder=""  required>
                           <div class="invalid-feedback">
                               Se requiere un apellido válido.
                           </div>
@@ -99,32 +99,32 @@
 
 
                       <div class="col-sm-6">
-                          <label for="firstName" class="form-label">Cedula</label>
-                          <input formGroupName="cedula" type="text" class="form-control" id="firstName" placeholder="" required>
+                          <label for="cedula" class="form-label">Cedula</label>
+                          <input formControlName="cedula" type="number" class="form-control" id="cedula" placeholder="" required>
                           <div class="invalid-feedback">
-                              Se requiere un nombre válido.
+                              Se requiere un número de documento válido.
                           </div>
                       </div>
 
                       <div class="col-sm-6">
                           <label for="celular" class="form-label">Celular</label>
-                          <input formGroupName="celular" type="tel" class="form-control" id="celular" placeholder=""  required>
+                          <input formControlName="celular" type="tel" class="form-control" id="celular" placeholder=""  required>
                           <div class="invalid-feedback">
                               Se requiere un número de celular válido.
                           </div>
                       </div>
 
                       <div class="col-12">
-                          <label for="email" class="form-label">Correo <span class="text-muted"></span></label>
-                          <input formGroupName="correo" type="email" class="form-control" id="email" placeholder="you@example.com">
+                          <label for="correo" class="form-label">Correo <span class="text-muted"></span></label>
+                          <input formControlName="correo" type="email" class="form-control" id="correo" placeholder="you@example.com">
                           <div class="invalid-feedback">
                              Ingrese una dirección de correo electrónico válida.
                           </div>
                       </div>
 
                       <div class="col-12">
-                          <label for="address" class="form-label">Dirección</label>
-                          <input formGroupName="direccion" type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+                          <label for="direccion" class="form-label">Dirección</label>
+                          <input formControlName="direccion" type="text" class="form-control" id="direccion" placeholder="1234 Main St" required>
                           <div class="invalid-feedback">
                               Por favor introduzca su direccion.
                           </div>
@@ -132,21 +132,18 @@
 
 
                       <div class="col-md-5">
-                          <label for="country" class="form-label">Ciudad</label>
-                          <select class="form-select" id="country" required>
-                              <option value="">Seleccionar</option>
-                              <option>Bucaramanga</option>
-                          </select>
+                          <label for="ciudad" class="form-label">Ciudad</label>
+                          <input formControlName="ciudad" class="form-control" type="text" id="ciudad" required />
                           <div class="invalid-feedback">
-                              Seleccione un departamento válido.
+                              Seleccione una ciudad válida.
                           </div>
                       </div>
 
                       <div class="col-md-4">
-                          <label type="text" class="form-label">Barrio</label>
-                          <input type="text" class="form-control" required>
+                          <label for="barrio" type="text" class="form-label">Barrio</label>
+                          <input type="text" class="form-control" required id="barrio">
                           <div class="invalid-feedback">
-                              Proporcione una ciudad válida.
+                              Proporcione un barrio válido.
                           </div>
                       </div>
 
