@@ -38,7 +38,7 @@
                         <div>
                             <span class="">{{ initialQuery.adultos + initialQuery.kids}}</span>
                             <span class="text-muted">{{ initialQuery.adultos}}</span>
-                            <span class="text-muted">{{ initialQuery.kids}}</span>
+                            <span class="text-muted" *ngIf="initialQuery.kids > 0">{{ initialQuery.kids}}</span>
                         </div>
                       </div>
                   </li>

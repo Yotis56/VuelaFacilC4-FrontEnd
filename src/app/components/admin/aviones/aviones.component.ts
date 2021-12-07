@@ -15,7 +15,7 @@ export class AvionesComponent implements OnInit {
   public aviones: avionModel[] = [];           // Array para guardar los aviones de la petición a DB
   public avionActualizar: avionModel | null = null;     //Para almacenar el objeto avion a actualizar
 
-  constructor(private avionesService: AvionesService, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private avionesService: AvionesService, private formBuilder: FormBuilder) { }
 
   async ngOnInit(): Promise<void> {
     this.buildForm();
@@ -25,10 +25,10 @@ export class AvionesComponent implements OnInit {
     const actualizar = localStorage.getItem('avionActualizar');   // Obtengo en actualizar loss valores dle avion a actualizar
     this.avionActualizar = actualizar ? JSON.parse(actualizar) : null;
     //console.log(this.avionActualizar);
-    
+
   }
 
-  private buildForm(){
+  private buildForm() {
     this.addAvionformGroup = this.formBuilder.group({
       marca: [this.avionActualizar?.marca, [Validators.required]],
       matricula: [this.avionActualizar?.matricula, [Validators.required]],
@@ -78,7 +78,7 @@ export class AvionesComponent implements OnInit {
     }
   }
 
-  public async actualizarAvion(){
+  public async actualizarAvion() {
     var id: string = this.avionActualizar?._id!;
     console.log(`El ID: ${id}`);
     const nuevoAvion: avionModel = {
@@ -97,7 +97,7 @@ export class AvionesComponent implements OnInit {
     }
   }
 
-  public irActualizarAvion(avion: avionModel){      // Método para enrutar botón de editar al form
+  public irActualizarAvion(avion: avionModel) {      // Método para enrutar botón de editar al form
     localStorage.setItem('avionActualizar', JSON.stringify(avion));   // Asigno los valores antiguos al objeto (Modelo / Valor)
     const actualizar = localStorage.getItem('avionActualizar');   // Obtengo en actualizar loss valores dle avion a actualizar
     this.avionActualizar = actualizar ? JSON.parse(actualizar) : null;
@@ -105,9 +105,9 @@ export class AvionesComponent implements OnInit {
     console.log(this.avionActualizar);
   }
 
-  public cerrarModal(){
+  public cerrarModal() {
     localStorage.clear();                     // Borrar el localStorage
-    if (this.avionActualizar !== null){
+    if (this.avionActualizar !== null) {
       this.avionActualizar = null;
       this.buildForm();
     }

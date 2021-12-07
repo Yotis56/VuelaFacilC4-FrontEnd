@@ -1,6 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
+import { Asiento } from 'src/app/models/AsientoInterface';
 import { environment } from 'src/environments/environment';
 
 export interface QueryVuelos {
@@ -23,5 +24,10 @@ export class InicioService {
     } catch (error) {
       console.log(error)
     }
+  }
+  public actualizarVuelo(idVuelo: string, body: Asiento) {
+    const url = `${environment.apiUrl}/vuelos/${idVuelo}`
+    const headers: HttpHeaders = new HttpHeaders({ 'push': 'true' })
+    return lastValueFrom(this.http.put(url, body, { headers }))
   }
 }

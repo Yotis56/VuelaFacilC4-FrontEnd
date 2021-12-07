@@ -1,7 +1,12 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Asiento } from 'src/app/models/AsientoInterface';
+import { Cliente } from 'src/app/models/ClienteInterface';
+import { Reserva } from 'src/app/models/ReservaInterface';
 import { ClientesService } from 'src/app/services/clientes/clientes.service';
+import { InicioService } from 'src/app/services/inicio/inicio.service';
+import { ReservasService } from 'src/app/services/reservas/reservas.service';
 
 @Component({
   selector: 'app-checkout',
@@ -18,7 +23,13 @@ export class CheckoutComponent implements OnInit {
   public hasDiscount: boolean = false
   public clientForm: FormGroup = new FormGroup({})
 
-  constructor(private fb: FormBuilder, private clientesService: ClientesService) { }
+  constructor(
+    private fb: FormBuilder,
+    private clientesService: ClientesService,
+    private reservasService: ReservasService,
+    private inicioService: InicioService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
 
@@ -44,7 +55,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   public getPrice = (distance: number): number => {
-    return distance * 200.353
+    return distance * 200.353 * (this.initialQuery.adultos + this.initialQuery.kids)
   }
 
   public getPriceFormat = (price: number): string => {
@@ -52,8 +63,9 @@ export class CheckoutComponent implements OnInit {
     return new Intl.NumberFormat('es-CO', options).format(price)
   }
   public getTotalPrice = () => {
-    const precioIda = this.vuelos[0].ruta.distancia * 200.353
-    const precioVuelta = this.vuelos[1] !== '' ? this.vuelos[1].ruta.distancia * 200.353 : 0
+    const pasajeros = (this.initialQuery.adultos + this.initialQuery.kids)
+    const precioIda = this.vuelos[0].ruta.distancia * 200.353 * pasajeros
+    const precioVuelta = this.vuelos[1] !== '' ? this.vuelos[1].ruta.distancia * 200.353 * pasajeros : 0
     this.precioTotal = precioIda + precioVuelta
     this.precioFinal = this.precioTotal
   }
@@ -85,18 +97,13 @@ export class CheckoutComponent implements OnInit {
     })
 
   }
-  public submitReserva = () => {
-    this.checkValidity()
-    if (this.clientForm.valid) {
-      this.crearReserva()
-    }
-  }
+
 
   private async checkCliente(): Promise<boolean | undefined> {
     //regresa true si el cliente existe, false si no. Y undefined si encontró algún error.
     try {
-      const cliente = await this.clientesService.obtenerClientePorCc(this.clientForm.value.cedula)
-      if (cliente !== undefined && cliente.status === 404) {
+      const response = await this.clientesService.obtenerClientePorCc(this.clientForm.value.cedula)
+      if (response !== undefined && response.status === 404) {
         return false
       } else {
         return true
@@ -107,19 +114,83 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  private crearCliente() {
-    //Acá tengo que crear un objeto con los datos del cliente y mandarlo al servicio
-    //programar servicio de crear cliente
+  private async crearCliente(): Promise<boolean> {
+    const cliente: Cliente = {
+      documento: this.clientForm.value.cedula,
+      tipoDocumento: 'CC',
+      nombres: this.clientForm.value.nombres,
+      apellidos: this.clientForm.value.apellidos,
+      telefono: this.clientForm.value.celular,
+      correo: this.clientForm.value.correo,
+      direccion: this.clientForm.value.direccion,
+      ciudad: this.clientForm.value.ciudad
+    }
+    try {
+      const response = await this.clientesService.crearCliente(cliente)
+      return await response.status === 201 ? true : false
+    } catch (error) {
+      console.error(error)
+      return false
+    }
+  }
+  private async crearReserva(idVuelo: string): Promise<{ message: string; status: number; _id: string; } | undefined> {
+    const reserva: Reserva = {
+      numeroAdultos: this.initialQuery.adultos,
+      numeroInfantes: this.initialQuery.kids,
+      documentoCliente: this.clientForm.value.cedula,
+      tarifa: 'economica',
+      idVuelo: idVuelo
+    }
+    try {
+      const response = await this.reservasService.crearReserva(reserva)
+      return response
+    } catch (error) {
+      console.error(error)
+      return undefined
+    }
   }
 
-  private crearReserva() {
-    //Reviso si el cliente existe
-    if (!this.checkCliente()) this.crearCliente()
-
-    //si existe, no hago nada. Si no existe, tengo que crearlo.
-    //Creo la reserva: asigno el número de adultos, de niños, el documento del cliente, tarifa (no se ha programado) y id de vuelo
-    //En el vuelo, tengo que hacer un update con dos vuelos menos
-
-    //guardo la reserva.
+  public submitReserva = async () => {
+    this.checkValidity()
+    if (this.clientForm.valid) {
+      try {
+        //booleano que me dice si el cliente ya existe, o no, según su cédula
+        const isClient = await this.checkCliente()
+        if (!isClient) {
+          //Si el cliente no existe, lo creo. El método me devuelve true si se creo con éxito
+          let isNewClient = await this.crearCliente()
+          if (!isNewClient) {
+            window.alert('No se pudo crear el cliente!')
+            return
+          }
+        }
+        const responseIda = await this.crearReserva(this.vuelos[0]._id)
+        if (responseIda !== undefined) {
+          //Si la respuesta de la reserva no es undefined (o sea, se creo), procedo a modificar el vuelo con dos asientos menos
+          const asientosIda: Asiento = { idReserva: responseIda._id, categoria: 'economica' }
+          await this.inicioService.actualizarVuelo(this.vuelos[0]._id, asientosIda)
+        } else {
+          window.alert('Hubo un problema guardando la reserva. Intente más tarde.')
+          return
+        }
+        if (this.vuelos[1] !== '') {
+          //si hay un vuelo de vuelta, hago el mismo procedimiento de crear una reserva, y nodificar el vuelo
+          const responseVuelta = await this.crearReserva(this.vuelos[1]._id)
+          if (responseVuelta !== undefined) {
+            const asientosVuelta: Asiento = { idReserva: responseVuelta._id, categoria: 'economica' }
+            await this.inicioService.actualizarVuelo(this.vuelos[0]._id, asientosVuelta)
+          } else {
+            window.alert('Hubo un problema guardando la reserva. Intente más tarde.')
+            return
+          }
+        }
+        window.alert('¡Reserva generada con éxito!')
+        //this.router.navigate(['/reservas'])
+      } catch (error) {
+        console.error(error)
+      }
+    }
   }
 }
+
+
