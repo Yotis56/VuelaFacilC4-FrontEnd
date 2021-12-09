@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,10 +18,11 @@ import { AvionesComponent } from './components/admin/aviones/aviones.component';
 import { DestinosComponent } from './components/admin/destinos/destinos.component';
 import { AgregarVuelosComponent } from './components/admin/agregar-vuelos/agregar-vuelos.component';
 import { ConsultarReservasComponent } from './components/admin/consultar-reservas/consultar-reservas.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AsientosComponent } from './components/asientos/asientos.component';
+import { NetworkInterceptor } from './utilities/networkInterceptor/network.interceptor';
 
 @NgModule({
   declarations: [
@@ -46,9 +48,14 @@ import { AsientosComponent } from './components/asientos/asientos.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: NetworkInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

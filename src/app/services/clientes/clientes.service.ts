@@ -12,11 +12,10 @@ export class ClientesService {
   constructor(private http: HttpClient) { }
 
   public async obtenerClientePorCc(cedula: string): Promise<any> {
-    const url = `${environment.apiUrl}/clientes/buscar?cedula=${cedula}`;
+    const url = `${environment.apiUrl}/clientes/buscar?documento=${cedula}`;
     try {
       return await lastValueFrom(this.http.get(url))
     } catch (error) {
-      console.error(error)
       return error
     }
   }

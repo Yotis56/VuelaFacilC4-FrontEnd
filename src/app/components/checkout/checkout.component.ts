@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Asiento } from 'src/app/models/AsientoInterface';
 import { Cliente } from 'src/app/models/ClienteInterface';
 import { Reserva } from 'src/app/models/ReservaInterface';
 import { ClientesService } from 'src/app/services/clientes/clientes.service';
 import { InicioService } from 'src/app/services/inicio/inicio.service';
+import { LoadingService } from 'src/app/services/loading/loading.service';
 import { ReservasService } from 'src/app/services/reservas/reservas.service';
 
 @Component({
@@ -14,7 +16,7 @@ import { ReservasService } from 'src/app/services/reservas/reservas.service';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
-
+  public loading$: Observable<boolean> = this.loader.loading$
   public vuelos: any[] = []
   public initialQuery: any
   public codigoPromocion: FormControl = new FormControl('')
@@ -28,7 +30,8 @@ export class CheckoutComponent implements OnInit {
     private clientesService: ClientesService,
     private reservasService: ReservasService,
     private inicioService: InicioService,
-    private router: Router
+    private router: Router,
+    public loader: LoadingService
   ) { }
 
   ngOnInit(): void {
@@ -167,16 +170,19 @@ export class CheckoutComponent implements OnInit {
         const responseIda = await this.crearReserva(this.vuelos[0]._id)
         if (responseIda !== undefined) {
           //Si la respuesta de la reserva no es undefined (o sea, se creo), procedo a modificar el vuelo con dos asientos menos
+          window.sessionStorage.setItem('reservaIda', responseIda._id)
           const asientosIda: Asiento = { idReserva: responseIda._id, categoria: 'economica' }
           await this.inicioService.actualizarVuelo(this.vuelos[0]._id, asientosIda)
         } else {
           window.alert('Hubo un problema guardando la reserva. Intente más tarde.')
           return
         }
+        console.log(this.vuelos[1] !== '')
         if (this.vuelos[1] !== '') {
           //si hay un vuelo de vuelta, hago el mismo procedimiento de crear una reserva, y nodificar el vuelo
           const responseVuelta = await this.crearReserva(this.vuelos[1]._id)
           if (responseVuelta !== undefined) {
+            window.sessionStorage.setItem('reservaVuelta', responseVuelta._id)
             const asientosVuelta: Asiento = { idReserva: responseVuelta._id, categoria: 'economica' }
             await this.inicioService.actualizarVuelo(this.vuelos[0]._id, asientosVuelta)
           } else {
@@ -185,7 +191,8 @@ export class CheckoutComponent implements OnInit {
           }
         }
         window.alert('¡Reserva generada con éxito!')
-        //this.router.navigate(['/reservas'])
+        debugger
+        this.router.navigate(['/reservas'])
       } catch (error) {
         console.error(error)
       }
