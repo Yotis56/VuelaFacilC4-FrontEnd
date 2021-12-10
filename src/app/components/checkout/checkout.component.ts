@@ -167,6 +167,11 @@ export class CheckoutComponent implements OnInit {
             return
           }
         }
+        const clienteReserva = {
+          nombre: `${this.clientForm.value.nombres} ${this.clientForm.value.apellidos}`,
+          cedula: this.clientForm.value.cedula,
+        }
+        window.sessionStorage.setItem('datosCliente', JSON.stringify(clienteReserva))
         const responseIda = await this.crearReserva(this.vuelos[0]._id)
         if (responseIda !== undefined) {
           //Si la respuesta de la reserva no es undefined (o sea, se creo), procedo a modificar el vuelo con dos asientos menos
@@ -191,7 +196,6 @@ export class CheckoutComponent implements OnInit {
           }
         }
         window.alert('¡Reserva generada con éxito!')
-        debugger
         this.router.navigate(['/reservas'])
       } catch (error) {
         console.error(error)
