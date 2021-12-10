@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
@@ -9,9 +9,18 @@ import jsPDF from 'jspdf';
   templateUrl: './ticket-pdf.component.html',
   styleUrls: ['./ticket-pdf.component.scss']
 })
-export class TicketPdfComponent {
+export class TicketPdfComponent implements OnInit{
 
-  ngOnInit() {
+  ngOnInit(): void {
+    const cliente = window.sessionStorage.getItem('datosCliente')
+    const rIda = window.sessionStorage.getItem('reservaIda')
+    const rVuelta = window.sessionStorage.getItem('reservaVuelta')
+    const vuelosData = window.sessionStorage.getItem('vuelosSeleccionados')
+    console.log("CLIENTE: "+cliente)
+    console.log("RESERVA IDA: "+rIda)
+    console.log("RESERVA VUELTA: "+rVuelta)
+    console.log("VUELOS SELECCIONADOS: "+vuelosData)
+
 
   }
 
