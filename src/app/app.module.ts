@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AsientosComponent } from './components/asientos/asientos.component';
 import { NetworkInterceptor } from './utilities/networkInterceptor/network.interceptor';
+import { TicketPdfComponent } from './components/ticket-pdf/ticket-pdf.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { NetworkInterceptor } from './utilities/networkInterceptor/network.inter
     AgregarVuelosComponent,
     ConsultarReservasComponent,
     AsientosComponent,
+    TicketPdfComponent,
   ],
   imports: [
     BrowserModule,

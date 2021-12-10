@@ -1,0 +1,51 @@
+.contenedor{
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.texto-encima{
+  position: absolute;
+  top: 10px;
+  left: 1140px;
+  font-weight: bold;
+  font-size: 15px;
+  color: white;
+}
+
+.texto-reserva{
+  position: absolute;
+  top: 65px;
+  left: 550px;
+  font-weight: bold;
+  font-size: 35px;
+  color: #1687E3;
+}
+
+.texto-info{
+  position: absolute;
+  top: 180px;
+  left: 700px;
+  text-align: left;
+  line-height : 70px;
+  font-weight: bold;
+  font-size: 22px;
+
+
+
+}
+
+.centrado{
+  position: absolute;
+  top: 65%;
+  left: 350px;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 25px;
+  border-collapse: collapse;
+  border-width: 3px;
+  border-style: solid;
+  line-height : 40px;
+  border-radius: 8px;
+
+}
