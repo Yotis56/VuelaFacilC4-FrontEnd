@@ -2,22 +2,22 @@
 <div class="container text-center">
   <div class="text-center" style="padding-top: 15px; padding-bottom: 5px"> <h3>Reservas</h3> </div>
 
-  <div class="container-sm"style="width: 350px">
-      <div class="input-group mb-3 ">
-          <input type="text" class="form-control" placeholder="ID Reserva" aria-label="Recipient's username" aria-describedby="button-addon2">
-          <a class="btn btn-outline-secondary" type="button" id="button-addon2" href="javascript:document.getElementById('obj1').style.display='';void 0">Buscar</a>
-
-      </div>
+  
+  <div id="obj1" *ngIf="isReserva; else gifBuscarReserva ">
+    <app-ticket-pdf></app-ticket-pdf>
   </div>
-
-    <div id="obj1" style="display:none">
-      <app-ticket-pdf></app-ticket-pdf>
+  
+  <ng-template #gifBuscarReserva>
+    <div class="container-sm"style="width: 350px">
+        <div class="input-group mb-3 ">
+            <input type="text" class="form-control" placeholder="ID Reserva" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <a class="btn btn-outline-secondary" type="button" id="button-addon2" href="javascript:document.getElementById('obj1').style.display='';void 0">Buscar</a>
+  
+        </div>
     </div>
+    <img src="assets/gifs/Flight Booking.gif" alt=""/>
+  </ng-template>
 
-
-  <img src="assets/gifs/Flight Booking.gif" alt=""/>
-
-  <div class="d-grid gap-2 col-3 mx-auto" style="padding-top: 10px; padding-bottom: 35px">
-  </div>
+  <div class="d-grid gap-2 col-3 mx-auto" style="padding-top: 10px; padding-bottom: 35px"></div>
 </div>
 <app-footerprincipal></app-footerprincipal>

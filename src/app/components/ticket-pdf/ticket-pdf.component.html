@@ -6,7 +6,10 @@
 
     <div class="texto-encima">ID TICKET</div>
 
-    <div class="texto-reserva">ID RESERVA: </div>
+    <div class="texto-reserva">
+      <span>ID RESERVA IDA: {{reservaIda}}</span><br>
+      <span *ngIf="reservaVuelta !== '' ">ID RESERVA VUELTA: {{reservaVuelta}}</span>
+    </div>
 
     <table class="table centrado table-bordered border-primary" style="width:45% ">
       <thead>
@@ -19,26 +22,25 @@
       </thead>
       <tbody>
         <tr>
-          <th>1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
+          <th>{{vuelos[0]._id.slice(0,6)}}</th>
+          <td>{{vuelos[0].ruta.salida.IATA}} - {{vuelos[0].ruta.llegada.IATA}}</td>
+          <td>{{vuelos[0].fechaVuelo.slice(0,10)}}</td>
+          <td>{{vuelos[0].fechaVuelo.slice(11,19)}}</td>
         </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
+        <tr *ngIf="reservaVuelta !== '' ">
+          <th scope="row">{{vuelos[1]._id.slice(0,6)}}</th>
+          <td>{{vuelos[1].ruta.salida.IATA}} - {{vuelos[1].ruta.llegada.IATA}}</td>
+          <td>{{vuelos[1].fechaVuelo.slice(0,10)}}</td>
+          <td>{{vuelos[1].fechaVuelo.slice(11,19)}}</td>
         </tr>
       </tbody>
     </table>
 
-    <div class="texto-info">
-      NOMBRE:                  <br>
-      CEDULA:                  <br>
-      ASIENTOS RESERVADOS:     <br>
-
-    </div>
+    <ul class="texto-info">
+      <li class="texto-info__item">Nombre: {{clienteData.nombre}}</li>
+      <li class="texto-info__item">Cédula: {{clienteData.cedula}}</li>
+      <li class="texto-info__item">Asientos Reservados: </li>
+    </ul>
 
   </div>
 

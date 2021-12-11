@@ -7,12 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservasComponent implements OnInit {
 
-  constructor() {
+  public isReserva: boolean = false;
+  public isIdaVuelta: boolean = false;
 
-
-   }
+  constructor() { }
 
   ngOnInit(): void {
+    if (typeof (window.sessionStorage.getItem('reservaIda')) === 'string') this.isReserva = true
   }
 
 }

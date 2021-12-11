@@ -1,10 +1,10 @@
-.contenedor{
+.contenedor {
   position: relative;
   display: inline-block;
   text-align: center;
 }
 
-.texto-encima{
+.texto-encima {
   position: absolute;
   top: 10px;
   left: 1140px;
@@ -13,39 +13,48 @@
   color: white;
 }
 
-.texto-reserva{
+.texto-reserva {
   position: absolute;
-  top: 65px;
-  left: 550px;
+  top: 40px;
+  left: 53%;
   font-weight: bold;
-  font-size: 35px;
-  color: #1687E3;
+  font-size: 20px;
+  color: #1687e3;
+  margin-bottom: 15px;
+  & > span {
+    display: inline-block;
+    padding: 5px 0;
+  }
 }
 
-.texto-info{
+.texto-info {
+  display: block;
   position: absolute;
-  top: 180px;
-  left: 700px;
+  top: 218px;
+  left: 55%;
   text-align: left;
-  line-height : 70px;
+  line-height: 35px;
   font-weight: bold;
-  font-size: 22px;
-
-
-
+  font-size: 18px;
+  &__item {
+    text-decoration: none;
+    list-style: none;
+  }
 }
 
-.centrado{
+.centrado {
   position: absolute;
   top: 65%;
   left: 350px;
   transform: translate(-50%, -50%);
   font-weight: bold;
-  font-size: 25px;
+  font-size: 22px;
   border-collapse: collapse;
   border-width: 3px;
   border-style: solid;
-  line-height : 40px;
+  line-height: 40px;
   border-radius: 8px;
-
+  & > tbody {
+    font-size: 18px;
+  }
 }
