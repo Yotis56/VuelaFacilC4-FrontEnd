@@ -28,14 +28,14 @@
                     </div>
                 </div>
                 <div class="d-flex mb-4">
-                    <div class="w-50">
+                    <div class="main-input-block">
                         <label class="d-block" for="origen">Origen</label>
                         <select class="w-90 form-select" id="origen" name="origen" formControlName="origen">
                         <option  [ngValue]="null" disabled >seleccione origen</option>
                         <option *ngFor="let ciudad of ciudades" [disabled]="ciudad.IATA === buscarVuelosForm.value.destino" [ngValue]="ciudad.IATA" > {{ciudad.nombre}} </option>
                     </select>
                     </div>
-                    <div class="w-50">
+                    <div class="main-input-block">
                         <label class="d-block" for="destino">Destino</label>
                         <select class="w-90 form-select" id="destino" name="destino" formControlName="destino">
                         <option  [ngValue]="null" disabled >seleccione destino</option>
@@ -44,11 +44,11 @@
                     </div>
                 </div>
                 <div class="d-flex mb-4">
-                    <div class="w-50">
+                    <div class="main-input-block">
                         <label class="d-block " for="fechaSalida">Fecha de salida</label>
                         <input type="date" id="fechaSalida" name="fechaSalida" class="w-90 form-control" formControlName="fechaSalida" min='2020-12-05' (click)="setDateIda()">
                     </div>
-                    <div class="w-50">
+                    <div class="main-input-block">
                         <label class="d-block" for="fechaRegreso">Fecha de regreso</label>
                         <input type="date" id="fechaRegreso" name="fechaRegreso" class="w-90 form-control" formControlName="fechaLlegada" min='2020-12-05' (click)="setDateRegreso()">
                     </div>
@@ -59,11 +59,11 @@
                 </div>
 
                 <div class="d-flex mb-5">
-                    <div class="w-40">
+                    <div class="main-input-block">
                         <label for="adultos" class="d-block">Adultos: </label>
                         <input id="adultos" name="adultos" type="number" class="w-90 form-control" min="0" placeholder="0" formControlName="adultos">
                     </div>
-                    <div class="w-40">
+                    <div class="main-input-block">
                         <label for="infantes" class="d-block">Niños: </label>
                         <input id="infantes" name="infantes" type="number" class="w-90 form-control" min="0" placeholder="0" formControlName="kids">
                     </div>

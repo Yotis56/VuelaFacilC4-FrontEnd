@@ -1,59 +1,61 @@
 #principal {
   background-attachment: fixed;
-
 }
 
-
-.contenedor-buscador{
-  background:rgba(54,95,149,0.8);
+.contenedor-buscador {
+  background: rgba(54, 95, 149, 0.8);
   width: 30%;
 }
 
-.contenedor-derecho{
+.contenedor-derecho {
   width: 70%;
 }
 
-.radio{
+.radio {
   overflow: hidden;
-  background-color: #145BA4;
+  background-color: #145ba4;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
 }
 
-.radio-input{
+.radio-input {
   display: none;
 }
 
-.radio-label{
+.radio-label {
   width: 120px;
   text-align: center;
   padding: 15px;
   cursor: pointer;
-  background-color: #145BA4;
+  background-color: #145ba4;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
   transition: background 0.2s;
 }
 
-.radio-input:checked + .radio-label{
-  background-color: #00A5D7;
+.radio-input:checked + .radio-label {
+  background-color: #00a5d7;
 }
 
-.boton{
-  background-color: #00A5D7;
+.boton {
+  background-color: #00a5d7;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
   font-weight: bold;
 }
 
-.icono{
+.icono {
   width: 15px;
   height: 15px;
 }
 
-.bg-claro{
-  background-color: rgba(250,250,250,0.4);
+.bg-claro {
+  background-color: rgba(250, 250, 250, 0.4);
+}
+.main-input-block {
+  margin: auto 1%;
+  width: 48%;
 }

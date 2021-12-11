@@ -15,6 +15,7 @@ export class TicketPdfComponent implements OnInit {
   public reservaIda: any;
   public reservaVuelta: any;
   public vuelos: any;
+  public initialQuery: any;
 
   ngOnInit(): void {
     const cliente = window.sessionStorage.getItem('datosCliente')
@@ -25,6 +26,8 @@ export class TicketPdfComponent implements OnInit {
     this.reservaVuelta = typeof (rVuelta) === 'string' ? rVuelta.slice(0, 8) : ''
     const vuelosData = window.sessionStorage.getItem('vuelosSeleccionados')
     this.vuelos = typeof (vuelosData) === 'string' ? JSON.parse(vuelosData) : []
+    const initial = window.sessionStorage.getItem('initialQuery')
+    this.initialQuery = typeof (initial) === 'string' ? JSON.parse(initial) : {}
   }
 
 
